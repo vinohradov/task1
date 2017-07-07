@@ -1,0 +1,25 @@
+{
+  "name": "task1",
+  "version": "0.0.0",
+  "private": false,
+  "scripts": {
+    "start": "NODE_PATH=. node ./bin/www",
+    "seed": "NODE_PATH=. node ./createDb"
+  },
+  "dependencies": {
+    "app-module-path": "^2.2.0",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "errorhandler": "^1.5.0",
+    "express": "~4.15.2",
+    "express-session": "^1.15.3",
+    "hbs": "~4.0.1",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.11.1",
+    "morgan": "~1.8.1",
+    "nconf": "^0.8.4",
+    "passport": "^0.3.2",
+    "serve-favicon": "~2.4.2"
+  }
+}
