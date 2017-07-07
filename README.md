@@ -10,7 +10,9 @@ To run the project make sure mongoDb is installed and configured
 In project directory run following commands
 
 ```
-npm seed
+npm install
+
+npm run seed
 
 npm start
 ```
