@@ -1,4 +1,3 @@
-require('app-module-path').addPath(__dirname + '/app');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
