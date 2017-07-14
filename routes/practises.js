@@ -5,18 +5,14 @@ exports.get = function(req, res, next) {
     var page = req.query.page || 0;
     var perPage = page ? 5 : 0;
 
-    Practise
-        .find()
-        .limit(perPage)
-        .skip(perPage * page)
-        .sort({
-            id: 'asc'
-        })
-        .exec(function(err, affected) {
-            if(err) next(new Error(err));
+    Practise.paginate({}, { page: page, limit: perPage }, function(err, result){
+        if(err) next(new Error(err));
 
-            res.json(affected);
+        res.json({
+            data: result.docs,
+            total: result.total
         });
+    })
 };
 
 exports.getTechnologies = function(req, res, next) {
@@ -24,18 +20,12 @@ exports.getTechnologies = function(req, res, next) {
     var page = req.query.page || 0;
     var perPage = page ? 5 : 0;
 
-    Technology
-        .find({
-            practiceId: practiceId
-        })
-        .limit(perPage)
-        .skip(perPage * page)
-        .sort({
-            id: 'asc'
-        })
-        .exec(function(err, affected) {
-            if(err) next(new Error(err));
+    Technology.paginate({ practiceId: practiceId }, { page: page, limit: perPage }, function(err, result){
+        if(err) next(new Error(err));
 
-            res.json(affected);
+        res.json({
+            data: result.docs,
+            total: result.total
         });
+    })
 };

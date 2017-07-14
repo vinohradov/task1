@@ -1,4 +1,5 @@
 var mongoose = require('lib/mongoose'),
+    mongoosePaginate = require('mongoose-paginate'),
     Schema = mongoose.Schema;
 
 var schema = new Schema({
@@ -24,6 +25,8 @@ schema.methods.toJSON = function() {
     delete obj._id;
     return obj;
 };
+
+schema.plugin(mongoosePaginate);
 
 exports.Practice = mongoose.model('Practice', schema);
 
