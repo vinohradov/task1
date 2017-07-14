@@ -8,7 +8,7 @@ async.series([
     requireModels,
     createPractices,
     createTechnologies,
-    generateTokens
+    createUsers
 ], function (err) {
     mongoose.disconnect();
     process.exit(err ? 255 : 0);
@@ -26,7 +26,7 @@ function dropDatabase(callback) {
 function requireModels(callback) {
     require('models/practice');
     require('models/technology');
-    require('models/token');
+    require('models/user');
     async.each(Object.keys(mongoose.models), function (modelName, callback) {
         mongoose.models[modelName].ensureIndexes(callback);
     }, callback);
@@ -67,15 +67,15 @@ function createTechnologies(callback) {
     }, callback);
 }
 
-function generateTokens(callback) {
-    var tokens = [
-        { id: guid() },
-        { id: guid() },
-        { id: guid() }
+function createUsers(callback) {
+    var users = [
+        { email:'vinohradov@gmail.com', token: guid() },
+        { email: 'valerii@gmail.com', token: guid() },
+        { email: 'alex@gmail.com' }
     ];
-    async.each(tokens, function (tokenData, callback) {
-        var tokens = new mongoose.models.Token(tokenData);
-        tokens.save(callback);
+    async.each(users, function (userData, callback) {
+        var users = new mongoose.models.User(tokenData);
+        users.save(callback);
     }, callback);
 }
 
