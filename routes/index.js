@@ -3,14 +3,9 @@ var checkToken = require('middleware/checkToken');
 var HttpError = require('error').HttpError;
 
 module.exports = function(app){
-    /*todo: clarify here*/
-    app.get('/authorize', require('./authorize').get);
-    app.post('/authorize', require('./authorize').post);
 
-    app.get('/practices',checkToken, require('./practises').get);
-    app.get('/practices/:id/technologies',checkToken, require('./practises').getTechnologies);
+    app.all('/*', checkToken);
 
-    app.get('*', function(req, res){
-        res.send(new HttpError(404))
-    });
+    app.get('/practices', require('./practises').get);
+    app.get('/practices/:id/technologies', require('./practises').getTechnologies);
 };

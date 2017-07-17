@@ -1,21 +1,40 @@
 var HttpError = require('error').HttpError;
-var Token = require('models/token').Token;
+var User = require('models/user').User;
+var crypto = require('crypto.js');
+
+var DELAY_TIME = 4000;
 
 module.exports = function(req, res, next) {
-    var token = req.headers['x-access-token'];
+    var token = req.token,
+        email = req.headers['from'],
+        date = req.headers['now'];
 
     if (!token) {
-        return next(new HttpError(401, "No token provided"));
+        return next(new HttpError(403));
+    }
+    if (isOutdated(date) ){
+        return next(new HttpError(403));
     }
 
-    Token.find({ id: token }).exec(function (err, affected) {
+    User.findOne({ email: email }).exec(function (err, user) {
         if (err) {
-            next(new Error(err));
+            return next(new Error(err));
         }
-        if (!affected.length) {
-            return next(new HttpError(401, "No token provided"));
+        if (!user) {
+            return next(new HttpError(403));
+        }
+        if (encryptUserToken(user.token, date) !== token) {
+            return next(new HttpError(403));
         }
 
-        next();
+        return next();
     });
 };
+
+function encryptUserToken(tokenInDb, date){
+    return crypto.encrypt(tokenInDb + date);
+}
+
+function isOutdated(date){
+    return (new Date() - date) > DELAY_TIME;
+}

@@ -74,7 +74,7 @@ function createUsers(callback) {
         { email: 'alex@gmail.com' }
     ];
     async.each(users, function (userData, callback) {
-        var users = new mongoose.models.User(tokenData);
+        var users = new mongoose.models.User(userData);
         users.save(callback);
     }, callback);
 }
