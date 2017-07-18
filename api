@@ -5,7 +5,7 @@ method: get
         Now: Date with token was encrypted
         From: User email
     responses:
-        403 - if there is no token provided in headers
+        403 - if token isn't valid
 
     ** each request should have authorization token
 
