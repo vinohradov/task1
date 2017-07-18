@@ -18,7 +18,7 @@ npm run seed
 npm run dev
 ```
 
-Make requests to *http://localhost:9000*
+Make requests to *http://localhost:8000*
 
 ### Running tests
 To run the tests
