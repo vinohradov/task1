@@ -5,7 +5,7 @@ exports.get = function(req, res, next) {
     var page = req.query.page || 1;
     var perPage = page ? 5 : 0;
 
-    Practise.paginate({}, { page: page, limit: perPage }, function(err, result){
+    Practise.paginate({}, { page: page, limit: perPage, sort: { id: 'asc'} }, function(err, result) {
         if(err) {
             return next(new Error(err));
         }
@@ -22,7 +22,7 @@ exports.getTechnologies = function(req, res, next) {
     var page = req.query.page || 1;
     var perPage = page ? 5 : 0;
 
-    Technology.paginate({ practiceId: practiceId }, { page: page, limit: perPage }, function(err, result){
+    Technology.paginate({ practiceId: practiceId }, { page: page, limit: perPage, sort: { id: 'asc'} }, function(err, result) {
         if(err) {
             return next(new Error(err));
         }

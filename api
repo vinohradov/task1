@@ -1,38 +1,38 @@
 url: /*
 method: get
+    headers:
+        Authorization: "Bearer encrypted(token + Date)"
+        Now: Date with token was encrypted
+        From: User email
     responses:
-        200 - { status: 404, message:"not found"}
+        403 - if there is no token provided in headers
 
-url: /tokens
-method: get
-    responses:
-        200 - Will return array of available tokens
-        404 - if something went wrong
+    ** each request should have authorization token
 
 url: /practices?page=1
 method: get
-    headers:
-        x-access-token: token required
     queries:
         page: number what page with practices to show
-            *if not specified will show all practices
-            *shows 5 practices per page
+            ** if not specified will show first 5 entities
+            ** shows 5 practices per page
     responses:
-        200 - Will return array of available practices
-        401 - if there is no token provided in headers
+        200 - Will return array of practices
         404 - if something went wrong
 
 url: /practices/:practiseId/technologies?page=1
 method: get
-    headers:
-        x-access-token: token required
     parameters:
         practiceId: id of the practice
     queries:
         page: number what page with practices to show
-            *if not specified will show all practices
-            *shows 5 practices per page
+            ** if not specified will show first 5 entities
+            ** shows 5 practices per page
     responses:
-        200 - Will return array of available practises
-        401 - if there is no token provided in headers
+        200 - will return array of technologies
         404 - if something went wrong
+
+url: *
+method: *
+    response: {status: 404, message: 'Not Found'}
+
+    ** for all unmatched routes

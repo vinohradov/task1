@@ -2,7 +2,7 @@ var HttpError = require('error').HttpError;
 var User = require('models/user').User;
 var crypto = require('crypto.js');
 
-var DELAY_TIME = 4000;
+var EXPIRATION_TIME = 4000;
 
 module.exports = function(req, res, next) {
     var token = req.token,
@@ -12,7 +12,7 @@ module.exports = function(req, res, next) {
     if (!token) {
         return next(new HttpError(403));
     }
-    if (isOutdated(date) ){
+    if (isExpired(date) ){
         return next(new HttpError(403));
     }
 
@@ -35,6 +35,6 @@ function encryptUserToken(tokenInDb, date){
     return crypto.encrypt(tokenInDb + date);
 }
 
-function isOutdated(date){
-    return (new Date() - date) > DELAY_TIME;
+function isExpired(date){
+    return (new Date() - date) > EXPIRATION_TIME;
 }

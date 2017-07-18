@@ -8,4 +8,8 @@ module.exports = function(app){
 
     app.get('/practices', require('./practises').get);
     app.get('/practices/:id/technologies', require('./practises').getTechnologies);
+
+    app.all('*', function(req, res, next){
+        next(new HttpError(404));
+    });
 };

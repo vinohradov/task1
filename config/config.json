@@ -1,14 +1,18 @@
 {
   "port": 8000,
   "mongoose": {
-    "uri": "mongodb://localhost/task",
-    "options": {
-      "server": {
-        "socketOptions": {
-          "keepAlive": 1
-        }
-      },
-      "useMongoClient": true
+    "prod": {
+      "uri": "mongodb://localhost/prod",
+      "options": {
+        "useMongoClient": true
+      }
+    },
+    "dev": {
+      "uri": "mongodb://localhost/dev",
+      "options": {
+        "useMongoClient": true
+      }
     }
+
   }
 }
